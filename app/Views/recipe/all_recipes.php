@@ -9,7 +9,7 @@
 <ul>
     <?php 
     foreach($recipes as $recipe):
-        echo '<li>'.$recipe->getName().'</li>';
+        echo '<li>'.$recipe->name.'</li>';
     endforeach;  
     ?>
 </ul>

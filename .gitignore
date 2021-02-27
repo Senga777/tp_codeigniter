@@ -6,12 +6,14 @@ system/
 writable/
 # app
 app/ThirdParty/
-app/Librairies/
-app/Langage/
+app/Libraries/
+app/Language/
 app/Helpers/
 app/Filters/
 app/Database/
 app/Config/
+app/Common.php
+app/.htaccess
 # root
 composer.json
 env
