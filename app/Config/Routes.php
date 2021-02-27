@@ -36,7 +36,8 @@ $routes->setAutoRoute(true);
 
 // My routes : 
 $routes->get('/', 'RecipeController::index');
-
+$routes->get('/recipe/(:num)', 'RecipeController::read/$1');
+$routes->post('/recipe/(:num)/add', 'RecipeController::addTag/$1');
 
 
 

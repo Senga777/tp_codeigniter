@@ -16,6 +16,8 @@ class ModelRecipe extends Model {
         'nom'
     ];
     protected $returnType = 'App\Entities\Recipe';
-    protected $useTimestamps = true;
+    protected $useTimestamps = false;
+
+
 
 }
