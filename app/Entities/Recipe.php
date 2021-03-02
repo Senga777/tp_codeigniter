@@ -12,6 +12,7 @@ use CodeIgniter\Entity;
  * @property string $nom Nom de la recette
  */
 class Recipe Extends Entity {
+   
 
     protected $attributes = [
         'id' => null,

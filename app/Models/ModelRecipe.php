@@ -18,6 +18,14 @@ class ModelRecipe extends Model {
     protected $returnType = 'App\Entities\Recipe';
     protected $useTimestamps = false;
 
+    public function findByTag($id) {
+        $builder = $this->db->table('tag_recette');
+        $query = $builder->select('recette.*')
+                ->join('recette', 'recette.id = tag_recette.id_recette')
+                ->where('id_tag', $id)
+                ->get();
+        return $query->getResult();
 
+    }
 
 }

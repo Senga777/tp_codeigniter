@@ -22,8 +22,8 @@ class ModelTagTest extends CIDatabaseTestCase {
     
 
     public function testFindAllTags() {
-        $this->model->findAllTags(1);
-        $this->seeNumRecords(2, 'tag_recette', ['id_recette' => 1]);
+        $tags = $this->model->findAllTags(1);
+        $this->assertEquals(2, count($tags));
     }
 
     public function testFindOrCreate() {
@@ -39,6 +39,19 @@ class ModelTagTest extends CIDatabaseTestCase {
         $this->assertEquals('Chocolat au lait', $tag->name);
         $this->assertEquals('chocolat-au-lait', $tag->slug);
     }
+    
+    protected  function testAddTagForRecipe(){
+        $v1 = $this->model->addTagForRecipe(1, 2);
+        $this->assertEquals(true, $v1);
+        $this->seeInDatabase("tag_recette", ["id_tag" => 1, 'id_recette' => 2]);
+        $v2 = $this->model->addTagForRecipe(1, 2);
+        $this->assertEquals(false, $v2);
+        $this->seeNumRecords(2, 'tag_recette', ['id_recette' => 1]);
+        $this->seeNumRecords(2, 'tag_recette', ['id_recette' => 1]);
+        
+    }
+    
+    
 
     protected function setUp(): void {
         parent::setUp();

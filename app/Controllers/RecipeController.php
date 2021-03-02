@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use App\Models\ModelRecipe;
 use App\Models\ModelTag;
+use DateTime;
+use function dd;
 use function helper;
 use function view;
 
@@ -13,6 +15,12 @@ use function view;
  * @author agnes
  */
 class RecipeController extends BaseController {
+
+    /**
+     *
+     * @var DateTime
+     */
+    protected DateTime $d;
 
     /**
      * Afficher toutes les recettes
@@ -49,7 +57,9 @@ class RecipeController extends BaseController {
     public function addTag($id) {
         helper(['form']);
 
+        $modelTag = new ModelTag();
         $modelRecipe = new ModelRecipe();
+
         $recipe = $modelRecipe->find($id);
         $data = ['recipe' => $recipe];
 
@@ -62,14 +72,16 @@ class RecipeController extends BaseController {
             // Afficher les messages d'erreur
             $data['validation'] = $this->validator;
         } else {
-            // TODO Creation du tag
-            // TODO Ajoute dans la table associative
-            
-            // Afficher un message de succes 
-            echo view('alerts/success');
+            $tag_name = $this->request->getPost('new_tag');
+            $id_tag = $modelTag->findOrCreate($tag_name);
+            if ($id_tag) {
+                $data['success'] = $modelTag->addTagForRecipe($id_tag, $id);
+            } 
+
+
         }
 
-        $modelTag = new ModelTag();
+
         $data['tags'] = $modelTag->findAllTags($id);
 
         return view('recipe/one_recipe', $data);

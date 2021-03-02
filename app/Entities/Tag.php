@@ -16,13 +16,13 @@ class Tag Extends Entity {
     protected $attributes = [
         'id' => null,
         'nom' => null, // Nom en base de données
+        'slug' => null,
         'created_at' => null,
         'updated_at' => null,
     ];
-    
-    
     protected $datamap = [
         'name' => 'nom',
     ];
+
 
 }
