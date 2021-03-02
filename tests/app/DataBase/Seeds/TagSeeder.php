@@ -15,15 +15,25 @@ class TagSeeder extends Seeder {
 
     public function run() {
         parent::run();
-        $fabricator = new Fabricator(ModelTag::class, null, 'fr_FR');
-        $tags = $fabricator->create(10);
+        $data = [
+            [
+                'id' => 1,
+                'nom' => 'Chocolat',
+                'slug' => 'chocolat',
+            ],
+            [
+                'id' => 2,
+                'nom' => 'Fruit',
+                'slug' => 'fruit',
+            ],
+        ];
+        $this->db->table('tag')->insertBatch($data);
         
         $builder = $this->db->table('tag_recette');
-        $data = [];
-        foreach ($tags as $tag) {
-            $data[] = ['id_tag' => $tag->id, 'id_recette' => 1];
-        }
-        $builder->insertBatch($data);
+        $builder->insertBatch([
+            ['id_tag' => 1, 'id_recette' => 1], 
+            ['id_tag' => 2, 'id_recette' => 1]
+        ]);
     }
 
 }
