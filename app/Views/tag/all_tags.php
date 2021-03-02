@@ -12,7 +12,9 @@
     ?>
 </ul>
 
-    <a href="<?= base_url(""); ?>">Retour</a>
+  <?php
+  echo view("navigation");
+  ?>
 
 </body>
 </html>

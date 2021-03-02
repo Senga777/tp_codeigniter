@@ -1,11 +1,18 @@
+<html>
+    <head>
+        <title>Recipes</title>
+    </head>
+    <body>
+<h1>Toutes les recettes</h1>
 <?php
+if(isset($tag)):
+    ?>
+<h2><?= $tag->name; ?></h2>
+<?php
+endif;
 
-/* 
- * Vue de toutes les recettes
- */
 
 ?>
-<h1>Toutes les recettes</h1>
 <ul>
     <?php 
     foreach($recipes as $recipe):
@@ -13,3 +20,10 @@
     endforeach;  
     ?>
 </ul>
+  <?php
+  echo view("navigation");
+  ?>
+
+
+</body>
+</html>

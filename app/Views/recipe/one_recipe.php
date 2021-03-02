@@ -5,7 +5,7 @@
 ?>
 <html>
     <head>
-        <title>Read</title>
+        <title>Recipe</title>
     </head>
     <body>
         <h1><?= $recipe->name; ?></h1>
@@ -15,7 +15,16 @@
         }
         ?>
 
-        <?= form_open(base_url('recipe/'.$recipe->id.'/add')) ?>
+        
+        <?php
+         if(isset($success) && $success == true){
+             // Afficher un message de succes  
+             echo view('alerts/success');
+         }
+          
+        
+        ?>
+        <?= form_open(base_url('recipe/' . $recipe->id . '/add')) ?>
 
         <label>Nouveau tag</label>
         <input type="text" name="new_tag" value="" size="50" />
@@ -31,7 +40,10 @@
     </ul>
 
 
-    <a href="<?= base_url(""); ?>">Retour</a>
+  <?php
+  echo view("navigation");
+  ?>
+
 
 </body>
 </html>
