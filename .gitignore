@@ -22,6 +22,9 @@ spark
 phpunit.xml.dist
 LICENSE
 
+clover.xml
+composer.lock
+
 
 
 #-------------------------

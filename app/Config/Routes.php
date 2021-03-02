@@ -41,10 +41,11 @@ $routes->post('/recipe/(:num)/add', 'RecipeController::addTag/$1');
 
 $routes->get('/tags', 'TagController::showTags');
 $routes->get('/tag/(:num)', 'TagController::showRecipesByTag/$1');
+$routes->post('/tag/update', 'TagController::updateTag');
+
+$routes->post('/tag/delete', 'TagController::deleteTag');
 
 $routes->get('/home', 'Home::index');
-
-
 
 /*
  * --------------------------------------------------------------------

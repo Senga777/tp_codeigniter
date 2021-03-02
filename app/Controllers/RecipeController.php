@@ -56,6 +56,7 @@ class RecipeController extends BaseController {
 
     public function addTag($id) {
         helper(['form']);
+    
 
         $modelTag = new ModelTag();
         $modelRecipe = new ModelRecipe();
@@ -75,6 +76,8 @@ class RecipeController extends BaseController {
             $tag_name = $this->request->getPost('new_tag');
             $id_tag = $modelTag->findOrCreate($tag_name);
             if ($id_tag) {
+               
+                
                 $data['success'] = $modelTag->addTagForRecipe($id_tag, $id);
             } 
 

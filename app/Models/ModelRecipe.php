@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
+use \App\Entities\Recipe;
 
 /**
  * Description of ModelRecipe
@@ -24,7 +25,7 @@ class ModelRecipe extends Model {
                 ->join('recette', 'recette.id = tag_recette.id_recette')
                 ->where('id_tag', $id)
                 ->get();
-        return $query->getResult();
+        return $query->getResult(Recipe::class);
 
     }
 

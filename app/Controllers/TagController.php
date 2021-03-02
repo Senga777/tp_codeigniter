@@ -1,9 +1,4 @@
 <?php
-
-/*
- * Agnes@needemand
- */
-
 namespace App\Controllers;
 
 use App\Models\ModelRecipe;
@@ -29,6 +24,31 @@ class TagController extends BaseController {
         $modelRecipe = new ModelRecipe();
         $recipes = $modelRecipe->findByTag($id);
         return view('recipe/all_recipes', ['recipes' => $recipes, 'tag' => $tag]);
+    }
+
+    public function updateTag() {
+        // TODO 
+    }
+
+    public function deleteTag() {
+        $data = [];
+        if ($this->validate([
+                    'id_recipe' => 'required|numeric',
+                    'id_tag' => 'required|numeric'
+                ])) {
+            
+            $model = new ModelTag();
+            $data['success'] = $model->removeTag( 
+                    $this->request->getPost('id_tag'), 
+                    $this->request->getPost('id_recipe'));
+
+        }else{
+            $data['errors'] = $this->validator;
+            $data['success'] = false;
+        }
+        header('Content-Type: application/json');
+        echo json_encode($data);
+        die;
     }
 
 }
