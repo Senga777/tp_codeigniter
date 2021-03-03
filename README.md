@@ -1,11 +1,11 @@
 # CodeIgniter 4 Framework
 
 
-## Prérequis
+## A vérifier
 
-- être en mode development
-- avoir paramètré la base de données
-- Configurer le BASE_URL
+- vous êtes en mode development
+- vous avez paramètré la base de données dans .env ou dans app/Congig/DataBase.php
+- vous avez configuré le BASE_URL
 
 
 
