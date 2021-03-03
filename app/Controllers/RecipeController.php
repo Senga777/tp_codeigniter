@@ -84,22 +84,30 @@ class RecipeController extends BaseController {
     }
 
     /**
+     * Recu depuis une requete Ajax
      * @return void
      */
     public function deleteTag() {
         $data = [];
+        $data['success'] = false;
         if ($this->validate([
                     'id_recipe' => 'required|numeric',
                     'id_tag' => 'required|numeric'
                 ])) {
 
             $model = new ModelTag();
-            $data['success'] = $model->removeTag(
+            
+            $success  = $model->removeTag(
                     $this->request->getPost('id_tag'),
                     $this->request->getPost('id_recipe'));
+            
+            if($success){
+                // rafraichissement du token CSRF
+                $data['csrf_token'] = csrf_hash();
+                $data['success'] = true;
+            }
         } else {
-            $data['errors'] = $this->validator;
-            $data['success'] = false;
+            $data['errors'] = $this->validator;   
         }
         header('Content-Type: application/json');
         echo json_encode($data);

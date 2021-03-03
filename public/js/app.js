@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const btns = document.querySelectorAll(".recipe_tag--remove");
     const ul = document.querySelector("#recipe_tag--list");
     const id = ul.getAttribute('data-ir');
+    const csrf = document.querySelector('input[name="csrf_nesti"]');
     
     
     /** ---- Event ----**/
@@ -19,8 +20,10 @@ document.addEventListener("DOMContentLoaded", function () {
             let id_tag = this.getAttribute('data-it');
             deleteTag(id, id_tag).then((response) => {
                 if (response) {
-                    if (response.success) {
+                    if (response.success && response.csrf_token) {
                         alert('Suppresion ok');
+                        // Raffraichissement du CSRF
+                        csrf.setAttribute('value', response.csrf_token);
                         this.parentElement.remove();
                     }
                 }
@@ -37,10 +40,13 @@ document.addEventListener("DOMContentLoaded", function () {
     async function deleteTag( id_recipe, id_tag) {
         // Requete
         var myHeaders = new Headers();
+        
+        
 
         let formData = new FormData();
         formData.append('id_recipe', id_recipe);
         formData.append('id_tag', id_tag);
+        formData.append(csrf.name, csrf.value);
 
         var myInit = {method: 'POST',
             headers: myHeaders,
