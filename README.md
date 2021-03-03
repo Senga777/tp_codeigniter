@@ -16,7 +16,7 @@
 
 ## Sommaire
 
-- Controleur : https://github.com/Senga777/tp_codeigniter/tree/main/app/Controllers
-- Modele : https://github.com/Senga777/tp_codeigniter/tree/main/app/Models
-- Vue : https://github.com/Senga777/tp_codeigniter/tree/main/app/Views
-- Tests unitaires : https://github.com/Senga777/tp_codeigniter/tree/main/tests/app
+- [Controleur ](https://github.com/Senga777/tp_codeigniter/tree/main/app/Controllers)
+- [Modele](https://github.com/Senga777/tp_codeigniter/tree/main/app/Models)
+- [Vue](https://github.com/Senga777/tp_codeigniter/tree/main/app/Views)
+- [Tests unitaires](https://github.com/Senga777/tp_codeigniter/tree/main/tests/app)
