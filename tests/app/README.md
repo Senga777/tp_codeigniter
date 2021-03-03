@@ -11,5 +11,6 @@ composer require --dev phpunit/phpunit
 ## Exécution des tests
 
 ```bash
-> ./vendor/bin/phpunit
-> ```
+./vendor/bin/phpunit
+```
+
