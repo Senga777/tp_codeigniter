@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
-use Config\Database;
 use App\Entities\Tag;
 
 /**
@@ -12,6 +11,7 @@ use App\Entities\Tag;
 class ModelTag extends Model {
 
     protected $table = "tag";
+
     /**
      *
      * @var array<string>
@@ -21,6 +21,17 @@ class ModelTag extends Model {
     ];
     protected $returnType = 'App\Entities\Tag';
     protected $useTimestamps = true;
+    
+    protected $validationRules = [
+        'nom' => 'required|alpha_numeric_space|min_length[3]',
+        'slug' => 'required|alpha_numeric|min_length[2]|is_unique[tag.slug]',
+    ];
+    protected $validationMessages = [
+        'slug' => [
+            'is_unique' => 'Désolé. Ce tag est déjà pris. Veuillez en choisir un autre.'
+        ]
+    ];
+     protected $skipValidation     = false;
 
     /**
      * `id_tag`, `id_recette`
@@ -33,13 +44,13 @@ class ModelTag extends Model {
         $builder->join('tag_recette', 'tag_recette.id_tag = tag.id');
         $builder->where('tag_recette.id_recette', $id_recipe);
         $query = $builder->get();
-        if($query == false){
+        if ($query == false) {
             $tags = [];
-        }else{
+        } else {
             $tags = $query->getResult(Tag::class);
         }
 
-        return $tags ;
+        return $tags;
     }
 
     /**
@@ -66,11 +77,11 @@ class ModelTag extends Model {
         if ($tag == null) {
             $tag = new Tag();
             $tag->fill([
-                'nom' => $tag_name,
-                'slug' => slugify($tag_name)       
+                'nom' => ucfirst($tag_name),
+                'slug' => slugify($tag_name)
             ]);
             $this->insert($tag);
-            $id_tag = (int)$this->getInsertID();
+            $id_tag = (int) $this->getInsertID();
         } else {
             $id_tag = $tag->id;
         }
@@ -83,7 +94,7 @@ class ModelTag extends Model {
      * @param int $id_recipe
      * @return bool 
      */
-    public function removeTag(int $id_tag, int $id_recipe):bool {
+    public function removeTag(int $id_tag, int $id_recipe): bool {
         $builder = $this->db->table('tag_recette');
         $verdict = ($builder->delete([
                     'id_tag' => $id_tag,
@@ -91,6 +102,5 @@ class ModelTag extends Model {
                 ]) != false);
         return $verdict;
     }
-    
 
 }

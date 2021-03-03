@@ -11,19 +11,13 @@
     <body>        
         <h1>Recette : <?= $recipe->name; ?></h1>
         <?php
-        if (isset($validation)) {
-            echo $validation->listErrors();
-        }
-        ?>    
-        <?php
-        if (isset($success) && $success == true) {
-            // Afficher un message de succes  
-            echo view('alerts/success');
-        }
+        echo view('alerts/success');
+        echo view('alerts/errors');
         ?>
         <!-- formulaire -->
-        <?= form_open(base_url('recipe/' . $recipe->id . '/add')) ?>
+        <?= form_open(base_url('recipe/add/tag')) ?>
         <label>Nouveau tag</label>
+        <input type="hidden" name="recipe_id" value="<?= $recipe->id ?>" size="50" />
         <input type="text" name="new_tag" value="" size="50" />
         <br>
         <input type="submit" value="Submit" />

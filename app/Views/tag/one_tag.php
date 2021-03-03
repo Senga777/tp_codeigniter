@@ -12,12 +12,12 @@
         <title>Recipes</title>
     </head>
     <body>
-        <?php
-        if($success){
-            echo view("alerts/success");
-        }
-        ?>
         <h1>Tag : <?= $tag->name; ?></h1>
+        <?php
+        echo view('alerts/success');
+        echo view('alerts/errors');
+        ?>
+
         <!-- formulaire -->
         <?= form_open(base_url('tag/update')) ?>
         <label>Modification d'un Tag :</label>

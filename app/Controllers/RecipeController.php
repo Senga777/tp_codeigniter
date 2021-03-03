@@ -5,7 +5,6 @@ namespace App\Controllers;
 use App\Models\ModelRecipe;
 use App\Models\ModelTag;
 use DateTime;
-use function dd;
 use function helper;
 use function view;
 
@@ -41,6 +40,7 @@ class RecipeController extends BaseController {
      */
     public function read(int $id) {
         helper(['form']);
+        $session = session();
 
         $model = new ModelRecipe();
         $recipe = $model->find($id);
@@ -50,7 +50,8 @@ class RecipeController extends BaseController {
 
         return view('recipe/one_recipe', [
             'recipe' => $recipe,
-            'tags' => $tags
+            'tags' => $tags,
+            'session' => $session
         ]);
     }
 
@@ -59,28 +60,49 @@ class RecipeController extends BaseController {
      * @param int  $id
      * @return string
      */
-    public function addTag(int $id) {
-        helper(['form']);
-        $modelTag = new ModelTag();
-        $modelRecipe = new ModelRecipe();
-
-        $recipe = $modelRecipe->find($id);
-        $data = ['recipe' => $recipe];
-        $rules = [
-            'new_tag' => 'required|min_length[3]',
-        ];
-        if (!$this->validate($rules)) {
-            // Afficher les messages d'erreur
-            $data['validation'] = $this->validator;
+    public function addTag() {
+        $session = session();
+        if (!$this->validate([
+                    'new_tag' => 'required|min_length[3]',
+                    'recipe_id' => 'required|numeric',
+                ])) {
+            $session->setFlashdata('errors', $this->validator->listErrors());  // Enregistre les messages d'erreur
         } else {
-            $tag_name = $this->request->getPost('new_tag');
-            $id_tag = $modelTag->findOrCreate($tag_name);
-            if ($id_tag) {
-                $data['success'] = $modelTag->addTagForRecipe($id_tag, $id);
+            $s = false;
+            $tag_name = $this->request->getPost('new_tag'); // On récupère les valeurs du post
+            $id_recipe = $this->request->getPost('recipe_id');
+            if ($this->addTagLogic($id_recipe, $tag_name)) {
+                $session->setFlashdata('success', true);
             }
         }
-        $data['tags'] = $modelTag->findAllTags($id);
-        return view('recipe/one_recipe', $data);
+        return redirect()->back();
+    }
+
+    /**
+     * Cette fonction n'est pas utiliser pour les URL
+     * @param int $id_recipe
+     * @param string $tag_name
+     * @return bool
+     */
+    private function addTagLogic(int $id_recipe, string $tag_name): bool {
+        $modelTag = new ModelTag();
+        $session = session();
+        $verdict = false;
+
+        $id_tag = $modelTag->findOrCreate($tag_name); // Trouver ou créer un tag
+        if (!$id_tag) {
+            // Une erreur s'est produite à la création du Tag
+            $session->setFlashdata('errors', $modelTag->errors());
+        } else {
+            // On l'associe le tag  à la recette
+            if ($modelTag->addTagForRecipe($id_tag, $id_recipe) == false) {
+                // Une erreur s'est produite à l'association du Tag
+                $session->setFlashdata('errors', $modelTag->errors());
+            } else {
+                $verdict = true;
+            }
+        }
+        return $verdict;
     }
 
     /**
@@ -96,18 +118,18 @@ class RecipeController extends BaseController {
                 ])) {
 
             $model = new ModelTag();
-            
-            $success  = $model->removeTag(
+
+            $success = $model->removeTag(
                     $this->request->getPost('id_tag'),
                     $this->request->getPost('id_recipe'));
-            
-            if($success){
+
+            if ($success) {
                 // rafraichissement du token CSRF
                 $data['csrf_token'] = csrf_hash();
                 $data['success'] = true;
             }
         } else {
-            $data['errors'] = $this->validator;   
+            $data['errors'] = $this->validator;
         }
         header('Content-Type: application/json');
         echo json_encode($data);

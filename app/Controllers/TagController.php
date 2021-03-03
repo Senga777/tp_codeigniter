@@ -23,12 +23,12 @@ class TagController extends BaseController {
      * @return string
      */
     public function index() {
-        $model = new ModelTag();        
+        $model = new ModelTag();
         /**
          * findAll() est équivalent à un SELECT * FROM tag
          * @var array<Tag> $tags
          */
-        $tags = $model->findAll(); 
+        $tags = $model->findAll();
         return view('tag/all_tags', ['tags' => $tags]);
     }
 
@@ -40,7 +40,6 @@ class TagController extends BaseController {
      */
     public function read(int $id) {
         helper('form');
-        $session = session();
         $modelTag = new ModelTag();
         $tag = $modelTag->find($id);
         $modelRecipe = new ModelRecipe();
@@ -48,7 +47,7 @@ class TagController extends BaseController {
         return view('tag/one_tag', [
             'recipes' => $recipes,
             'tag' => $tag,
-            'success' => $session->getFlashdata('success')
+            'session' =>  session()
         ]);
     }
 
@@ -59,7 +58,7 @@ class TagController extends BaseController {
      * @return RedirectResponse 
      */
     public function updateTag() {
-        $success = false;
+        $session = session();
         if ($this->validate([
                     'tag_name' => 'required|alpha|min_length[2]',
                     'tag_id' => 'required|numeric'
@@ -72,13 +71,14 @@ class TagController extends BaseController {
                 'slug' => slugify($name)
             ]);
             $model = new ModelTag();
-            $success = $model->save($tag);
+
+            if ($model->save($tag) === false) {
+                $session->setFlashdata('errors' , $model->errors());
+            }else{
+                 $session->setFlashdata('success', true);
+            }
         }
-        $session = session();
-        $session->setFlashdata('success', true);
         return redirect()->back();
     }
-
-
 
 }
