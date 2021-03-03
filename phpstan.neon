@@ -1,0 +1,21 @@
+parameters:
+    level: max
+    checkMissingIterableValueType: true
+    paths:
+        - app/Controllers
+        - app/Entities
+        - app/Models
+        - app/Views/tag
+        - app/Views/recipe
+        - app/Views/alerts
+        - app/Views/navigation.php
+        - tests/app
+    bootstrapFiles:
+        - app/Config/Boot/phpstan.php
+        - app/Common.php
+        - system/Common.php
+        - system/Helpers/url_helper.php
+        - system/Helpers/form_helper.php
+        - app/Config/Autoload.php
+
+    

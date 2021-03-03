@@ -11,7 +11,11 @@ use CodeIgniter\Test\CIDatabaseTestCase;
  */
 class EchantillonTest extends CIDatabaseTestCase {
 
-    function testTags() {
+    /**
+     * Tester le nombre de données attendu dans l'enchantillon test
+     * @return void
+     */
+    function testTags() :void {
         $this->seeNumRecords(2, 'tag', []);
         $this->seeNumRecords(2, 'recette', []);
     }

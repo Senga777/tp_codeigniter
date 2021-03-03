@@ -12,6 +12,11 @@ use CodeIgniter\Model;
 class ModelUser extends Model {
 
     protected $table = "utilisateur";
+    
+    /**
+     *
+     * @var array<string>
+     */
     protected $allowedFields = [
         'nom'
     ];

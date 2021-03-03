@@ -25,7 +25,7 @@ class BaseController extends Controller
 	 * class instantiation. These helpers will be available
 	 * to all other controllers that extend BaseController.
 	 *
-	 * @var array
+	 * @var array<string>
 	 */
 	protected $helpers = [];
 
@@ -35,6 +35,7 @@ class BaseController extends Controller
 	 * @param RequestInterface  $request
 	 * @param ResponseInterface $response
 	 * @param LoggerInterface   $logger
+         * @return void
 	 */
 	public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
 	{

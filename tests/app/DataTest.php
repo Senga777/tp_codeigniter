@@ -5,22 +5,29 @@ namespace App;
 use CodeIgniter\Test\CIUnitTestCase;
 
 /**
- * Description of MyTest
- *
+ * Un simple test
  * @author agnes
  */
 class DataBaseTest extends CIUnitTestCase {
-    
+
     /**
+     * 
+     * @param int $a
+     * @param int $b
+     * @param int $expected
+     * @return void
+     * Test Unit :
      * @dataProvider additionProvider
      */
-    public function testAdd($a, $b, $expected)
-    {
+    public function testAdd(int $a, int $b, int $expected) :void{
         $this->assertSame($expected, $a + $b);
     }
 
-    public function additionProvider()
-    {
+    /**
+     * 
+     * @return array<array<int>>
+     */
+    public function additionProvider() {
         return [
             [0, 0, 0],
             [0, 1, 1],
@@ -28,4 +35,5 @@ class DataBaseTest extends CIUnitTestCase {
             [1, 2, 3]
         ];
     }
+
 }

@@ -1,13 +1,28 @@
+<?php
+/**
+ * @var App\Entities\Tag $tag
+ * @var App\Entities\Recipe $recipe
+ * @var array<App\Entities\Recipe> $recipes
+ * @var array<App\Entities\Tag> $tags
+ * @var bool $success
+ */
+?>
 <html>
     <head>
         <title>Recipes</title>
     </head>
     <body>
+        <?php
+        if($success){
+            echo view("alerts/success");
+        }
+        ?>
         <h1>Tag : <?= $tag->name; ?></h1>
         <!-- formulaire -->
-        <?= form_open(base_url('tag/' . $recipe->id . '/update')) ?>
-        <label>Modification :</label>
-        <input type="text" name="new_tag" value="" size="50" />
+        <?= form_open(base_url('tag/update')) ?>
+        <label>Modification d'un Tag :</label>
+        <input type="hidden" name="tag_id" value="<?= $tag->id ?>">
+        <input type="text" name="tag_name" value="" size="50" />
         <br>
         <input type="submit" value="Submit" />
     </form>

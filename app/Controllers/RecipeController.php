@@ -39,7 +39,7 @@ class RecipeController extends BaseController {
      * @param int $id  id recu depuis l'url 
      * @return string 
      */
-    public function read($id) {
+    public function read(int $id) {
         helper(['form']);
 
         $model = new ModelRecipe();
@@ -54,21 +54,21 @@ class RecipeController extends BaseController {
         ]);
     }
 
-    public function addTag($id) {
+    /**
+     * Ajouter un tag à une recette
+     * @param int  $id
+     * @return string
+     */
+    public function addTag(int $id) {
         helper(['form']);
-    
-
         $modelTag = new ModelTag();
         $modelRecipe = new ModelRecipe();
 
         $recipe = $modelRecipe->find($id);
         $data = ['recipe' => $recipe];
-
-
         $rules = [
             'new_tag' => 'required|min_length[3]',
         ];
-
         if (!$this->validate($rules)) {
             // Afficher les messages d'erreur
             $data['validation'] = $this->validator;
@@ -76,17 +76,10 @@ class RecipeController extends BaseController {
             $tag_name = $this->request->getPost('new_tag');
             $id_tag = $modelTag->findOrCreate($tag_name);
             if ($id_tag) {
-               
-                
                 $data['success'] = $modelTag->addTagForRecipe($id_tag, $id);
-            } 
-
-
+            }
         }
-
-
         $data['tags'] = $modelTag->findAllTags($id);
-
         return view('recipe/one_recipe', $data);
     }
 

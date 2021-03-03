@@ -1,15 +1,10 @@
 <?php
-
-/*
- * Agnes@needemand
- */
-
 namespace App\Entities;
 
 use CodeIgniter\Entity;
 
 /**
- * Description of Author
+ * Description of User
  *
  * @author agnes
  */

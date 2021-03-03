@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var array<App\Entities\Recipe> $recipes
+ * @var App\Entities\Recipe $recipe
+ */
+?>
 <html>
     <head>
         <title>Recipes</title>

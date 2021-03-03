@@ -1,13 +1,14 @@
 <?php
-/*
- * Ajouter un tag à une recette
+/**
+ * @var App\Entities\Recipe $recipe
+ * @var array<App\Entities\Tag> $tags
  */
 ?>
 <html>
     <head>
         <title>Recipe</title>
     </head>
-    <body>
+    <body>        
         <h1>Recette : <?= $recipe->name; ?></h1>
         <?php
         if (isset($validation)) {
@@ -29,24 +30,24 @@
     </form>
     <!-- Fin du formulaire -->
     <p>Tous les tags liés :</p>
-<ul data-ir="<?= $recipe->id ?>" id="recipe_tag--list">
-<?php foreach ($tags as $tag): ?>
-        <li>
-        <a href="<?= base_url("tag/" . $tag->id) ?>"><?= $tag->name ?></a>
-    <button class="recipe_tag--remove" data-it="<?= $tag->id ?>">X</button>
-    </li>
+    <ul data-ir="<?= $recipe->id ?>" id="recipe_tag--list">
+        <?php foreach ($tags as $tag): ?>
+            <li>
+                <a href="<?= base_url("tag/" . $tag->id) ?>"><?= $tag->name ?></a>
+                <button class="recipe_tag--remove" data-it="<?= $tag->id ?>">X</button>
+            </li>
+            <?php
+        endforeach;
+        ?>
+    </ul>
+
+
     <?php
-endforeach;
-?>
-</ul>
-
-
-<?php
-echo view("navigation");
-?>
+    echo view("navigation");
+    ?>
     <script type="text/javascript">
-    const ROOT = '<?= base_url();?>';
+        const ROOT = '<?= base_url(); ?>';
     </script>
-<script src="<?= base_url('js/app.js'); ?>" type="text/javascript"></script>
+    <script src="<?= base_url('js/app.js'); ?>" type="text/javascript"></script>
 </body>
 </html>

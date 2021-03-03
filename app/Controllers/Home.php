@@ -9,11 +9,11 @@ use function view;
 
 class Home extends BaseController {
 
+    /**
+     * 
+     * @return string
+     */
     public function index() {
-        $fabricator = new Fabricator(ModelRecipe::class, null, 'fr_FR');
-        $fabricator->setOverrides(['id_auteur' => 1]);
-        $c = $fabricator->make(10);
-        dd($c);
         return view('welcome_message');
     }
 
