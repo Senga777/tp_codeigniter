@@ -18,21 +18,27 @@ use function view;
 class TagController extends BaseController {
 
     /**
-     * 
+     * Affiche tous les tags
+     * > Utilisation du model
      * @return string
      */
-    public function showTags() {
-        $model = new ModelTag();
-        $tags = $model->findAll();
+    public function index() {
+        $model = new ModelTag();        
+        /**
+         * findAll() est équivalent à un SELECT * FROM tag
+         * @var array<Tag> $tags
+         */
+        $tags = $model->findAll(); 
         return view('tag/all_tags', ['tags' => $tags]);
     }
 
     /**
-     * 
+     * Affiche un tag et ses recettes associées
+     * > UTilisation de plusieurs models
      * @param int  $id
      * @return string
      */
-    public function showRecipesByTag(int $id) {
+    public function read(int $id) {
         helper('form');
         $session = session();
         $modelTag = new ModelTag();
@@ -47,7 +53,9 @@ class TagController extends BaseController {
     }
 
     /**
-     * Exemple de redirection
+     * Modification d'un Tag
+     * Cece doit être accéssible en POST
+     * > Exemple de redirection + FlashData
      * @return RedirectResponse 
      */
     public function updateTag() {
@@ -68,31 +76,9 @@ class TagController extends BaseController {
         }
         $session = session();
         $session->setFlashdata('success', true);
-        // redirection + info de success :
         return redirect()->back();
     }
 
-    /**
-     * @return void
-     */
-    public function deleteTag() {
-        $data = [];
-        if ($this->validate([
-                    'id_recipe' => 'required|numeric',
-                    'id_tag' => 'required|numeric'
-                ])) {
 
-            $model = new ModelTag();
-            $data['success'] = $model->removeTag(
-                    $this->request->getPost('id_tag'),
-                    $this->request->getPost('id_recipe'));
-        } else {
-            $data['errors'] = $this->validator;
-            $data['success'] = false;
-        }
-        header('Content-Type: application/json');
-        echo json_encode($data);
-        die;
-    }
 
 }

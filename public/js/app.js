@@ -5,10 +5,14 @@
 
 document.addEventListener("DOMContentLoaded", function () {
     console.log('Ready');
-    // remove tag
+    
+    /** ---- Initialisation ---- **/
     const btns = document.querySelectorAll(".recipe_tag--remove");
     const ul = document.querySelector("#recipe_tag--list");
     const id = ul.getAttribute('data-ir');
+    
+    
+    /** ---- Event ----**/
     btns.forEach(function (elt) {
         elt.addEventListener('click', function (event) {
             event.preventDefault();
@@ -24,8 +28,13 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    async function deleteTag(id_recipe, id_tag) {
-        console.log(id, id_tag);
+    /**
+     * Requete Ajax pour supprimer un tag d'une recette
+     * @param {int} id_recipe
+     * @param {int} id_tag
+     * @returns mixed
+     */
+    async function deleteTag( id_recipe, id_tag) {
         // Requete
         var myHeaders = new Headers();
 
@@ -39,10 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
             cache: 'default',
             body: formData
         };
-
-
-
-        let response = await fetch(ROOT + '/tag/delete', myInit);
+        let response = await fetch(ROOT + '/recipe/delete/tag', myInit);
         try {
             if (response.ok) {
                 return await response.json();
