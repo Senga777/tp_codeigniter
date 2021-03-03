@@ -9,10 +9,16 @@
 
 
 
-## Afficher des recettes de cuisine
+## Associer des tags à des recettes de cuisine
 
 ![image](https://user-images.githubusercontent.com/51907114/109816795-6edab200-7c31-11eb-8ed7-1e6f7c3f34af.png)
 
+
+## Comment créer une nouvelle page ?
+
+1. Créer une méthode dans un contrôleur. 
+2. Créer une route ( Mot clé : URI Routing )
+3. Créer une vue
 
 ## Sommaire
 
