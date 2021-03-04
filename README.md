@@ -26,3 +26,4 @@
 - [Modele](https://github.com/Senga777/tp_codeigniter/tree/main/app/Models)
 - [Vue](https://github.com/Senga777/tp_codeigniter/tree/main/app/Views)
 - [Tests unitaires](https://github.com/Senga777/tp_codeigniter/tree/main/tests/app)
+- [Route](https://github.com/Senga777/tp_codeigniter/tree/main/app/Config)
