@@ -14,7 +14,7 @@ composer require --dev phpunit/phpunit
 ./vendor/bin/phpunit
 ```
 
-Utiliser une autre base de données pour effectuer les tests. 
+Utiliser une autre base de données pour effectuer les tests. Toutes les classes qui se terminent par Test et qui se trouvent dans le dossier test/app seront exécutés.
 
 Dans app/Config/DataBase.php modifiez les paramètres de la deuxième base de données. La base de données `ma_bdd_test` est une copie de la vrai base de données.
 
