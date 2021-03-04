@@ -16,6 +16,8 @@ composer require --dev phpunit/phpunit
 
 Utiliser une autre base de données pour effectuer les tests. Toutes les classes qui se terminent par Test et qui se trouvent dans le dossier test/app seront exécutés.
 
+## Créez une base de données test
+
 Dans app/Config/DataBase.php modifiez les paramètres de la deuxième base de données. La base de données `ma_bdd_test` est une copie de la vrai base de données.
 
 
