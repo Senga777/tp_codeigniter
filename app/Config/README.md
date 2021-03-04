@@ -28,6 +28,8 @@ Ceci est  équivalent à :
 ```
 $post_title = filter_input(INPUT_POST, 'title');
 ```
+> Mot clés : Retrieving Input, Post, Request
+
 Pensez à modifier la route
 
 Quand l'a méthode d'envoi est du GET :
