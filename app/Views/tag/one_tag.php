@@ -13,6 +13,7 @@
     </head>
     <body>
         <h1>Tag : <?= $tag->name; ?></h1>
+        <p>Slug : <?= $tag->slug; ?></p>
         <?php
         echo view('alerts/success');
         echo view('alerts/errors');
@@ -20,6 +21,7 @@
 
         <!-- formulaire -->
         <?= form_open(base_url('tag/update')) ?>
+        
         <label>Modification d'un Tag :</label>
         <input type="hidden" name="tag_id" value="<?= $tag->id ?>">
         <input type="text" name="tag_name" value="" size="50" />
@@ -27,6 +29,8 @@
         <input type="submit" value="Submit" />
     </form>
 
+    
+    
     <p>Les recettes liées : </p>
 
     <ul>

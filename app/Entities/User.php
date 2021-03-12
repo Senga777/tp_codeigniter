@@ -9,5 +9,5 @@ use CodeIgniter\Entity;
  * @author agnes
  */
 class User extends Entity {
-    //put your code here
+    
 }

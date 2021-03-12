@@ -112,6 +112,7 @@ class RecipeController extends BaseController {
     public function deleteTag() {
         $data = [];
         $data['success'] = false;
+        // On vérifie la validité des valeurs recus du formulaire POST
         if ($this->validate([
                     'id_recipe' => 'required|numeric',
                     'id_tag' => 'required|numeric'
@@ -131,6 +132,8 @@ class RecipeController extends BaseController {
         } else {
             $data['errors'] = $this->validator;
         }
+        
+        // Pour retourner du Json
         header('Content-Type: application/json');
         echo json_encode($data);
         die;

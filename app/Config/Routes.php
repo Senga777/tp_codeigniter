@@ -46,6 +46,7 @@ $routes->post('/tag/update', 'TagController::updateTag');
 $routes->post('/recipe/delete/tag', 'RecipeController::deleteTag');
 
 $routes->get('/home', 'Home::index');
+$routes->get('/test/form', 'TagController::testForm');
 
 /*
  * --------------------------------------------------------------------

@@ -47,7 +47,7 @@ class TagController extends BaseController {
         return view('tag/one_tag', [
             'recipes' => $recipes,
             'tag' => $tag,
-            'session' =>  session()
+            'session' => session()
         ]);
     }
 
@@ -66,19 +66,35 @@ class TagController extends BaseController {
             $tag = new Tag();
             $name = $this->request->getPost('tag_name');
             $tag->fill([
-                'nom' => $name,
+                'name' => $name,
                 'id' => $this->request->getPost('tag_id'),
                 'slug' => slugify($name)
             ]);
             $model = new ModelTag();
 
-            if ($model->save($tag) === false) {
-                $session->setFlashdata('errors' , $model->errors());
-            }else{
-                 $session->setFlashdata('success', true);
+            if ($model->update($tag->id, $tag) === false) {
+                $session->setFlashdata('errors', $model->errors());
+            } else {
+                $session->setFlashdata('success', true);
             }
         }
         return redirect()->back();
     }
 
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
